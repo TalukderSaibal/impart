@@ -9,4 +9,8 @@ class ProductController extends CI_Controller
         $this->load->view('Catelog/productUnit');
         $this->load->view('layout/footer');
     }
+
+    public function create(){
+        echo 'Saikat';
+    }
 }

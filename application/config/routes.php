@@ -56,3 +56,4 @@ $route['translate_uri_dashes'] = FALSE;
 
 //Product Unit
 $route['Products'] = 'ProductController/index';
+$route['productUnit'] = 'ProductController/create';

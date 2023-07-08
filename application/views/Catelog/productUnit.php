@@ -21,13 +21,20 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Unit Name <span style="color:red;">*</span></label>
+
+                    <form action="" method="POST" id="myForm">
+                        <div class="language_form">
+                            <button class="languageSelect" data-language="english">English</button>
+                            <button class="languageSelect" data-language="bangla">Bangla</button>
+                            <button class="languageSelect" data-language="spanish">Spanish</button>
+                        </div>
+                        <div class="form-group" id="myInput">
+                            <label for="exampleInputEmail1">Unit Name <span id="dd" style="color:red;"></span></label>
                             <input type="text" class="form-control">
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
+
                 </div>
             </div>
         </div>
@@ -76,9 +83,16 @@
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <script>
     $(document).ready(function(){
-        $('#ok').click(function(){
-            alert('ok');
-        })
+        $('#myForm').submit(function(event) {
+            event.preventDefault();
+
+            $('.languageSelect').click(function(){
+                var langlenght = $('.languageSelect').length;
+                var language = $(this).data('language');
+                $('#dd').text(language);
+            });
+            $('#myForm')[0].reset();
+        });
     });
 </script>
 
