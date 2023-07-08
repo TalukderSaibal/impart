@@ -1,3 +1,5 @@
-.div{
-    background-color: aqua;
+.page_title{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }

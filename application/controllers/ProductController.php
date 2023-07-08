@@ -5,6 +5,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class ProductController extends CI_Controller
 {
     public function index(){
-        echo "I am Saikat";
+        $this->load->view('layout/header');
+        $this->load->view('Catelog/productUnit');
+        $this->load->view('layout/footer');
     }
 }
