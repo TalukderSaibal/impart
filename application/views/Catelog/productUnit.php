@@ -3,6 +3,7 @@
 
     <div class="page_title">
         <h2>Unit List</h2>
+
         <!-- Button trigger modal -->
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
             <i class="fa fa-plus" aria-hidden="true"></i>
@@ -21,18 +22,34 @@
                     </button>
                 </div>
                 <div class="modal-body">
-
+                    <div id="alertDiv"></div>
                     <form action="" method="POST" id="myForm">
-                        <div class="language_form">
-                            <button class="languageSelect" data-language="english">English</button>
-                            <button class="languageSelect" data-language="bangla">Bangla</button>
-                            <button class="languageSelect" data-language="spanish">Spanish</button>
+
+                        <div id="tabs" style="height:150px;">
+                            <ul>
+                                <?php
+                                    foreach($languages as $key =>  $lang){ ?>
+                                        <li><a href="#tabs-<?= $key?>"><?= $lang->language_name ?></a></li>
+                                    <?php }
+                                ?>
+                            </ul>
+                            <?php
+                            
+                            foreach($languages as $key => $lang){ ?>
+                                <div id="tabs-<?= $key ?>">
+                                <div id=""  class="testingDiv">
+                                    <label for="">Unit name : <span id="languageName" style="color:red;">*</span> </label>
+                                    <input type="text" id="languageId" name="unit_<?= $lang->language_name ?>" class="form-control">
+                                </div>
+                            </div>
+                            <?php }
+                            
+                            ?>
                         </div>
-                        <div class="form-group" id="myInput">
-                            <label for="exampleInputEmail1">Unit Name <span id="dd" style="color:red;"></span></label>
-                            <input type="text" class="form-control">
-                        </div>
+
                         <button type="submit" class="btn btn-primary">Submit</button>
+
+                        
                     </form>
 
                 </div>
@@ -80,19 +97,66 @@
     </div>
     </div>
 </div>
+
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
+<script>
+    $( function() {
+        $( "#tabs" ).tabs();
+    } );
+</script>
+
 <script>
     $(document).ready(function(){
-        $('#myForm').submit(function(event) {
-            event.preventDefault();
+        // $('.languageSelect').on('click', function() {
+        //     var language = $(this).text();
+        //     $('#languageName').text(language);
+        // });
 
-            $('.languageSelect').click(function(){
-                var langlenght = $('.languageSelect').length;
-                var language = $(this).data('language');
-                $('#dd').text(language);
-            });
-            $('#myForm')[0].reset();
+    $('#myForm').submit(function(event) {
+        event.preventDefault();
+
+        var formData = $('#myForm').serializeArray();
+        var isMissingField = false;
+        var languageFields = {};
+
+        $('input[name^="unit_"]').each(function() {
+            var fieldName = $(this).attr('name');
+            var fieldValue = $(this).val();
+            if ($(this).val() === '') {
+                isMissingField = true;
+                return false; // Exit the loop early
+            }
+
+            if (fieldValue === '') {
+                isMissingField = true;
+                return false;
+            }
+
+            var language = fieldName.split('_')[1];
+            languageFields[language] = fieldValue;
         });
+
+        if(isMissingField){
+            $('#alertDiv').text('Please select for language');
+        }else{
+            console.log(formData);
+            $.ajax({
+            url: '<?= base_url('unit_create'); ?>',
+            type: 'POST',
+            data: formData,
+            dataType: 'json',
+            success: function(response) {
+                alert(response);
+            }
+        })
+        }
+
+        
+
+        $('#myForm')[0].reset();
+    });
     });
 </script>
 

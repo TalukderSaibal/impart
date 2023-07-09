@@ -54,6 +54,9 @@ $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
-//Product Unit
-$route['Products'] = 'ProductController/index';
-$route['productUnit'] = 'ProductController/create';
+//Language Route
+$route['Products']    = 'LanguageController/index';
+$route['productUnit'] = 'LanguageController/create';
+
+//Product Unit Route
+$route['unit_create'] = 'ProductController/create';

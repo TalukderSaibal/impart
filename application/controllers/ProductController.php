@@ -2,15 +2,22 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+
 class ProductController extends CI_Controller
 {
+    public function __construct(){
+        parent::__construct();
+    }
+
     public function index(){
-        $this->load->view('layout/header');
-        $this->load->view('Catelog/productUnit');
-        $this->load->view('layout/footer');
+
     }
 
     public function create(){
-        echo 'Saikat';
+        $unitBangla  = $this->input->post('unit_Bangla');
+        $unitEnglish = $this->input->post('unit_English');
+        $unitHindi   = $this->input->post('unit_Hindi');
+
+        echo $unitBangla;
     }
 }

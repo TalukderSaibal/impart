@@ -10,4 +10,20 @@
     align-items: center;
     margin: 10px 10px 10px;
     padding: 10px 12px 10px;
+    flex-wrap: wrap;
+}
+
+.active1{
+    background-color: aqua;
+}
+
+.testingDiv {
+    /* flex: 0 0 100%; */
+    position: absolute;
+    width: 88%;
+    top: 32%
+}
+
+.formBtn{
+    margin-top: 80px;
 }
