@@ -22,7 +22,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div id="alertDiv"></div>
+                    <div id="alertDiv" style="color:red;"></div>
                     <form action="" method="POST" id="myForm">
 
                         <div id="tabs" style="height:150px;">
@@ -38,8 +38,9 @@
                             foreach($languages as $key => $lang){ ?>
                                 <div id="tabs-<?= $key ?>">
                                 <div id=""  class="testingDiv">
+                                    <input type="hidden" value="<?= $lang->id ?>" name="languageId_<?= $lang->language_name ?>"> <br>
                                     <label for="">Unit name : <span id="languageName" style="color:red;">*</span> </label>
-                                    <input type="text" id="languageId" name="unit_<?= $lang->language_name ?>" class="form-control">
+                                    <input type="text" name="unit_<?= $lang->language_name ?>" class="form-control">
                                 </div>
                             </div>
                             <?php }
@@ -109,20 +110,13 @@
 
 <script>
     $(document).ready(function(){
-        // $('.languageSelect').on('click', function() {
-        //     var language = $(this).text();
-        //     $('#languageName').text(language);
-        // });
-
     $('#myForm').submit(function(event) {
         event.preventDefault();
 
-        var formData = $('#myForm').serializeArray();
         var isMissingField = false;
-        var languageFields = {};
+        var languageFields = [];
 
         $('input[name^="unit_"]').each(function() {
-            var fieldName = $(this).attr('name');
             var fieldValue = $(this).val();
             if ($(this).val() === '') {
                 isMissingField = true;
@@ -134,27 +128,32 @@
                 return false;
             }
 
-            var language = fieldName.split('_')[1];
-            languageFields[language] = fieldValue;
+            var language = $(this).attr('name').split('_')[1];
+            var languageId = $('input[name="languageId_' + language + '"]').val();
+            languageFields.push({
+                languageId: languageId,
+                language: language,
+                fieldValue: fieldValue
+            });
         });
 
         if(isMissingField){
             $('#alertDiv').text('Please select for language');
         }else{
-            console.log(formData);
+            var formData = {
+                languageFields: languageFields
+            };
+
             $.ajax({
             url: '<?= base_url('unit_create'); ?>',
             type: 'POST',
-            data: formData,
+            data: JSON.stringify(formData),
             dataType: 'json',
             success: function(response) {
                 alert(response);
             }
         })
         }
-
-        
-
         $('#myForm')[0].reset();
     });
     });
