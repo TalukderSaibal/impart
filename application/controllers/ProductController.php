@@ -22,7 +22,9 @@ class ProductController extends CI_Controller
 
         $languageFields = $requestData['languageFields'];
 
-        foreach ($languageFields as $field) {
+        $maxvalue =  $this->product->selectMax();
+
+        foreach ($languageFields as $index => $field) {
             $languageId = $field['languageId'];
             $language = $field['language'];
             $fieldValue = $field['fieldValue'];
@@ -30,7 +32,10 @@ class ProductController extends CI_Controller
             $data = array(
                 'language_id' => $languageId,
                 'unit_name' => $fieldValue,
+                'unit_group' => $maxvalue + 1
             );
+
+            // $maxvalue ++;
         
             $res = $this->product->insert($data);
         
