@@ -29,4 +29,24 @@ class Product extends CI_Model
             return 0; // If no rows are found, return 0 or handle it as per your requirement
         }
     }
+
+    public function getData($query){
+        $this->db->query('SET sql_mode=(SELECT REPLACE(@@sql_mode, "ONLY_FULL_GROUP_BY", ""));');
+        $query = $this->db->query($query);
+        return $query->result();
+    }
+
+    public function getUnit($query){
+        $query = $this->db->query($query);
+        $data = $query->result();
+        return $data;
+    }
+
+    public function updateData($table, $id, $data){
+        $this->db->set($data);
+        $this->db->where('unit_group', $id);
+        $this->db->update($table, $data);
+    
+        return $this->db->affected_rows() >= 0;
+    }
 }

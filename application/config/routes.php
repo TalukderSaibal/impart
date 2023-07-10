@@ -60,3 +60,5 @@ $route['productUnit'] = 'LanguageController/create';
 
 //Product Unit Route
 $route['unit_create'] = 'ProductController/create';
+$route['unit_edit/(:num)'] = 'ProductController/unitEdit/$1';
+$route['unit_edit'] = 'ProductController/update';
