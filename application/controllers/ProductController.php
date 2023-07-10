@@ -93,6 +93,16 @@ class ProductController extends CI_Controller
             }
         }
         echo 'Successfully update';
+    }
 
+    //Unit Delete
+    public function delete(){
+        $id = $this->input->post('id');
+        $res = $this->product->deleteData('product_unit',$id);
+
+        if($res){
+            echo 'Successfully deleted';
+            return;
+        }
     }
 }

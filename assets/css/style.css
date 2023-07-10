@@ -27,3 +27,21 @@
 .formBtn{
     margin-top: 80px;
 }
+
+.base_table {
+    position: relative;
+}
+
+#deleteDiv {
+    position: absolute;
+    background-color: black;
+    padding: 10px 12px 10px;
+    top: 50%;
+    left: 25%;
+}
+
+.deleteButton {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

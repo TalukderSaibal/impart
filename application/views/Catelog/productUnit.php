@@ -59,6 +59,16 @@
     </div>
 
     <div class="base_table">
+
+    <!-- Delete Modal -->
+    <div id="deleteDiv" style="display: none;">
+        <p style="color: #fff;">Are you sure want to delete ?</p>
+        <div class="deleteButton">
+            <button id="okBtn">Ok</button>
+            <button id="cancelBtn">Cancel</button>
+        </div>
+    </div>
+
         <div class="search_form">
             <form action="" method="post">
                 <input type="text">
@@ -83,7 +93,7 @@
                             <td><?= $unit->unit_name ?></td>
                             <td>Active</td>
                             <td>
-                                <a href="<?= base_url('unit_edit/'. $unit->unit_group) ?>">Edit</a> / <a class="deleteBtn" href="">Delete</a>
+                                <a href="<?= base_url('unit_edit/'. $unit->unit_group) ?>">Edit</a> / <a class="deleteBtn" data-id=<?= $unit->unit_group ?> href="">Delete</a>
                             </td>
                         </tr>
                 <?php }
@@ -156,6 +166,33 @@
 </script>
 
 <script>
-    $(document).ready()
+    $(document).ready(function(){
+        $('.deleteBtn').click(function(){
+            $('#deleteDiv').show();
+            var id = $(this).data('id');
+                $('#okBtn').click(function(){
+                    $.ajax({
+                        url: "<?= base_url('unit_delete') ?>",
+                        type: "POST",
+                        data: 'id=' + id,
+                        dataType: "json",
+                        success: function(response) {
+                            if(response.status && response.status == 'success'){
+                                $('#successDiv').text(response.message).show();
+                                location.reload();
+                            }else{
+                                $('#successDiv').text(response.message).show();
+                            }
+                        }
+                    });
+                    $('#deleteDiv').hide();
+                });
+            return false;
+        });
+
+        $('#cancelBtn').click(function(){
+            $('#deleteDiv').hide();
+        });
+    });
 </script>
 
