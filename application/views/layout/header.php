@@ -84,6 +84,12 @@
 						</a>
 					</li>
 
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="<?= base_url('add-products') ?>">
+							<i class="align-middle" data-feather="book"></i> <span class="align-middle">Add Product</span>
+						</a>
+					</li>
+
 					<li class="sidebar-header">
 						Tools & Components
 					</li>

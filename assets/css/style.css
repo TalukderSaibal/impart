@@ -45,3 +45,25 @@
     justify-content: space-between;
     align-items: center;
 }
+
+.form_button {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 12px 10px;
+    align-items: center;
+}
+
+.form_button button{
+    border: none;
+    background-color: #a861f0;
+    color: #fff;
+    padding: 5px 8px 6px;
+    border-radius: 4px;
+}
+
+.row_body {
+    padding: 10px 12px 10px;
+    border: 1px solid #80808091;
+    margin-bottom: 5px;
+    border-radius: 4px;
+}
