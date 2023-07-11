@@ -36,8 +36,6 @@ class ProductController extends CI_Controller
                 'unit_name' => $fieldValue,
                 'unit_group' => $maxvalue + 1
             );
-
-            // $maxvalue ++;
         
             $res = $this->product->insert($data);
         
