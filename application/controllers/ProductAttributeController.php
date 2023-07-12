@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class ProductAttributeController extends CI_Controller
 {
-    public $productAttribute,$Language,$category;
+    public $productAttribute,$Language,$category,$input;
     public function __construct(){
         parent::__construct();
         $this->load->model('productAttribute');
@@ -67,9 +67,16 @@ class ProductAttributeController extends CI_Controller
         $res = $this->productAttribute->updateData($attributeId,$query);
 
         if($res){
-            foreach($res as $row){
-                echo json_encode($row->language_id);
-            }
+            echo json_encode($res);
         }
-    }   
+    }
+    
+    public function edit(){
+        echo 'ok';
+        $requestData = json_decode(file_get_contents('php://input'), true);
+        $formFields = $requestData['formFields'];
+
+        echo '<pre>';
+        print_r($formFields);
+    }
 }

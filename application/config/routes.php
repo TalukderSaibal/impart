@@ -68,6 +68,7 @@ $route['unit_delete'] = 'ProductController/delete';
 $route['add-products-attribute'] = 'ProductAttributeController/index';
 $route['attribute_create'] = 'ProductAttributeController/create';
 $route['attribute_update'] = 'ProductAttributeController/update';
+$route['attribute-edit'] = 'ProductAttributeController/edit';
 
 //Add Product Route
 $route['add-products'] = 'ProductAddController/index';

@@ -108,8 +108,8 @@
 
 <div id="dialog-form" title="Create new user">
     <p class="validateTips">All form fields are required.</p>
-
-    <form>
+    <div id="alertDiv1" style="color:red;"></div>
+    <form action="" method="POST" id="attributeForm">
         <fieldset>
             <div id="tabs1" style="height:150px;">
                 <ul>
@@ -126,8 +126,7 @@
                     <div id="" class="testingDiv">
                         <input type="hidden" value="<?= $lang->id ?>" name="languageId_<?= $lang->language_name ?>"> <br>
                         <label for="">Attribute name : <span id="languageName" style="color:red;">*</span> </label>
-                        <input type="text" name="atrribute_<?= $lang->language_name ?>" id="attributeName" class="form-control">
-                        <input type="hidden" name="attributeId" id="attributeId">
+                        <input type="text" name="atrribute_<?= $lang->language_name ?>" id="attributeName_<?= $lang->id?>" class="form-control">
                     </div>
                 </div>
                 <?php }
@@ -135,7 +134,7 @@
                 ?>
             </div>
 
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">Update</button>
         </fieldset>
     </form>
 
@@ -293,15 +292,42 @@
                 data: 'attributeId=' + attributeGroupId,
                 dataType: 'json',
                 success: function(response){
-                    console.log(response);
+                    for(var i = 0; i<response.length; i++){
+                        var attribute = response[i];
+                        var attributeName = attribute.attribute_name;
+                        var languageId = attribute.language_id;
+                        var inputFeild = $('#attributeName_'+languageId);
+                        if(inputFeild.length > 0){
+                            inputFeild.val(attributeName);
+                        }
+                    }
                 }
             })
         }
+
+        // Attribute Form method
+        $('#attributeForm').submit(function(e){
+            e.preventDefault();
+
+            var formData1 = {
+                formFields1: formFields1
+            };
+            $.ajax({
+                url: '<?= base_url('attribute-edit') ?>',
+                type: "POST",
+                data: JSON.stringify(formData1),
+                dataType: 'json',
+                success: function(response){
+                    alert(response);
+                }
+            })
+        })
         
         dialog.dialog( "open" );
     });
 });
 </script>
+
 
 
 
